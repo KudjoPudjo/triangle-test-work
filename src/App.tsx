@@ -4,15 +4,18 @@ import Input from "./components/Input/Inpurt";
 import Button from "./components/Button/Button";
 import CustomCanvas from "./components/Canvas/Canvas";
 import {useThree} from "@react-three/fiber";
+import axiosCustom from "./axiosCustom/axiosCustom";
+import {vec} from "./types/vecTriangle";
 
 function App() {
     const [height,setHeight] = useState(0)
     const [radius,setRadius] = useState(0)
     const [segments,setSegments] = useState(0)
+    let [arrTriangle,setArrTriangle] = useState<vec[]>([])
 
-
-    const sendData = ():void=>{
-        
+    const sendData =async ()=>{
+        const response = await axiosCustom.post("/send-data",{height,radius,segments})
+        setArrTriangle(response.data)
     }
 
     return (
@@ -25,7 +28,7 @@ function App() {
         <Button onClick={sendData}>
             Compute triangulation
         </Button>
-        <CustomCanvas height={height} radius={radius} segments={segments} ></CustomCanvas>
+        <CustomCanvas arrTriangle={arrTriangle} height={height} radius={radius} segments={segments} ></CustomCanvas>
     </div>
     );
 }

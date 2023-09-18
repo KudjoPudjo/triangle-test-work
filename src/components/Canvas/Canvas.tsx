@@ -6,44 +6,25 @@ import {Camera, Color} from "three";
 import CustomTriangle from "../Triangle/Triangle";
 import {useRef} from "react/index";
 import Scene from "../Scene/Scene";
+import {vec} from "../../types/vecTriangle";
 
 
-type cord  = {
-    x:number,
-    y:number,
-    z:number
-}
 
-type vec = {
-    A:cord,
-    P:cord,
-    P1:cord
-}
 
 type Props = {
     height:number,
     radius:number,
-    segments:number
+    segments:number,
+    arrTriangle:vec[]
 }
 
 function CustomCanvas({
     height,
     radius,
-    segments
+    segments,
+    arrTriangle
 }:Props){
-    const arrTriangle = useMemo(()=>{
-        let arr:vec[] = []
-        if(height && radius && segments){
-            for (let i = 0;i<segments;i++){
-                arr.push({
-                    A:{x:0,y:height,z:0},
-                    P:{x:radius*Math.cos((2*Math.PI) * i/segments),y:0,z:radius * Math.sin((2*Math.PI)*i/segments)},
-                    P1:{x:radius*Math.cos((2*Math.PI) * (i+1)/segments),y:0,z:radius * Math.sin((2*Math.PI)*(i+1)/segments)}
-                })
-            }
-            return arr
-        }else return arr
-    },[height,radius,segments])
+
     return (
         <div id="canvas-container">
             <Canvas
