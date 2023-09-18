@@ -1,0 +1,22 @@
+.input{
+  border: 1px solid white;
+  outline: none;
+  background: black;
+  color: white;
+  font-size: 18px;
+  padding: 20px;
+  border-radius: 8px;
+  transition: .6s;
+  &:hover{
+    background: rgba(68,68,68,0.4);
+  }
+  &_label{
+    font-size: 22px;
+    color: white;
+    margin-bottom: 8px;
+  }
+  &_wrap{
+    display: flex;
+    flex-direction: column;
+  }
+}
