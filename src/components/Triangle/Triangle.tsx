@@ -24,7 +24,20 @@ type Props = {
     P1:Vector
 }
 
+type edgesProps = {
+    geom:BufferGeometry
+}
 
+function Edges({geom}:edgesProps){
+    const geometry = new EdgesGeometry( geom); // or WireframeGeometry
+    const material = new LineBasicMaterial( { color: 0xffff00, linewidth: 2 } );
+
+
+
+    return (
+        <lineSegments geometry={geometry} material={material}></lineSegments>
+    )
+}
 
 function CustomTriangle({
                             A,P,P1
@@ -47,15 +60,14 @@ function CustomTriangle({
 
     useEffect(()=>{
         if(meshRef.current){
-            const geometry = new EdgesGeometry( meshRef.current.geometry); // or WireframeGeometry
-            const material = new LineBasicMaterial( { color: 0xffff00, linewidth: 2 } );
-            const edges = new LineSegments( geometry, material );
-            meshRef.current.add( edges );
+
         }
     },[meshRef,geom,mesh])
 
     return (
-        <mesh ref={meshRef} geometry={geom} material={mesh}></mesh>
+        <mesh ref={meshRef} geometry={geom} material={mesh}>
+            <Edges geom={geom}></Edges>
+        </mesh>
     )
 }
 
